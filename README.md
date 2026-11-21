@@ -58,6 +58,12 @@ curl -s -X POST http://localhost:3000/test/chat -H "Content-Type: application/js
 
 Repite la llamada con el mismo `telefono` para continuar la conversación (por ejemplo: "somos 2, para este sábado a las 10", luego "sí, resérvame, soy Ana Pérez"). La respuesta incluye `herramientas`, la lista de tools que usó el modelo en ese turno.
 
+Para probar una nota de voz (requiere `STT_API_KEY`), manda el archivo en base64; la respuesta incluye `transcripcion`:
+
+```bash
+curl -s -X POST http://localhost:3000/test/chat -H "Content-Type: application/json" -d "{\"telefono\":\"573001112233\",\"audio_base64\":\"$(base64 -w0 nota.ogg)\",\"audio_mime\":\"audio/ogg\"}"
+```
+
 Para simular al dueño confirmando una solicitud, envía desde el número de `OWNER_WHATSAPP`:
 
 ```bash
@@ -149,6 +155,8 @@ WhatsApp solo permite texto libre si el cliente escribió en las últimas 24 h. 
 | `ANTHROPIC_API_KEY` | <https://console.anthropic.com> → API Keys |
 | `ANTHROPIC_MODEL` | Opcional. Por defecto `claude-haiku-5-5` |
 | `ANTHROPIC_EFFORT` | Opcional (`low`, `medium`, `high`). Vacío = valor por defecto del modelo |
+| `STT_API_KEY` | Opcional. Activa las notas de voz. Llave de Groq (<https://console.groq.com/keys>) u OpenAI |
+| `STT_API_URL`, `STT_MODEL` | Opcionales. Por defecto Groq `whisper-large-v3-turbo`. Para OpenAI: `https://api.openai.com/v1/audio/transcriptions` y `whisper-1` |
 | `WHATSAPP_TOKEN` | Token del usuario del sistema (paso 4) |
 | `WHATSAPP_PHONE_NUMBER_ID` | Identificador de número de teléfono (paso 2). No es el número |
 | `WHATSAPP_VERIFY_TOKEN` | Lo inventas tú; debe coincidir con el del webhook (paso 5) |
@@ -232,7 +240,7 @@ src/tenants/<id>            config.json, catalogo.json, menu.json, prompt.md
 
 ## Limitaciones conocidas de la v1
 
-- Solo texto: a audios, imágenes y documentos responde pidiendo que escriban.
+- Texto y notas de voz (si `STT_API_KEY` está configurada: el audio se descarga de WhatsApp, se transcribe con Whisper y Vivi responde por texto). A imágenes y documentos responde pidiendo que lo cuenten por escrito o en audio.
 - No hay "pausa" del bot cuando una persona toma el chat; el bot sigue respondiendo.
 - La cola por cliente vive en memoria: pensado para una sola instancia del servidor.
 - El bot no verifica pagos ni comprobantes; eso lo hace el equipo.

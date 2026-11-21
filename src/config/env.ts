@@ -23,6 +23,12 @@ const esquema = z.object({
   WHATSAPP_APP_SECRET: z.string().optional(),
   GRAPH_API_VERSION: z.string().default("v21.0"),
 
+  // Voz a texto para notas de voz (API compatible con Whisper: Groq u OpenAI).
+  // Sin STT_API_KEY el bot sigue respondiendo que solo lee texto.
+  STT_API_KEY: z.string().optional(),
+  STT_API_URL: z.string().url().default("https://api.groq.com/openai/v1/audio/transcriptions"),
+  STT_MODEL: z.string().default("whisper-large-v3-turbo"),
+
   ADMIN_TOKEN: z.string().optional(),
   ENABLE_TEST_CHAT: z.enum(["true", "false"]).optional(),
   TENANTS_DIR: z.string().optional(),
@@ -40,6 +46,7 @@ const datos = resultado.data;
 export const env = {
   ...datos,
   esProduccion: datos.NODE_ENV === "production",
+  sttHabilitado: Boolean(datos.STT_API_KEY),
   testChatHabilitado: datos.ENABLE_TEST_CHAT ? datos.ENABLE_TEST_CHAT === "true" : datos.NODE_ENV !== "production",
   // Los datos de cada negocio viven en archivos; se leen desde la raíz del proyecto
   // (así funciona igual con `tsx` y con el build en dist/).

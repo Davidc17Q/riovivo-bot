@@ -11,16 +11,25 @@ import {
   resumirSiHaceFalta,
 } from "./memoria";
 import { cambiarEstadoReserva } from "./reservas";
+import { type AudioEntrante, transcribirNotaDeVoz } from "./transcripcion";
 import { normalizarTelefono } from "./texto";
 
 export const MENSAJE_FALLBACK = "¡Hola! Dame un momentico y ya te ayudo 🙏";
 export const MENSAJE_SOLO_TEXTO =
   "¡Hola! Por ahora solo puedo leer mensajes de texto 🙈 ¿Me cuentas por escrito en qué te puedo ayudar?";
+export const MENSAJE_SIN_ADJUNTOS =
+  "¡Hola! Por ahora no puedo ver fotos ni archivos 🙈 ¿Me lo cuentas por escrito o en una nota de voz?";
+export const MENSAJE_AUDIO_NO_ENTENDIDO =
+  "Uy, no alcancé a escuchar bien tu nota de voz 🙈 ¿Me la repites o me lo escribes, porfa?";
+/** Prefijo con el que el modelo sabe que el mensaje vino de una nota de voz transcrita. */
+export const PREFIJO_NOTA_DE_VOZ = "🎤 Nota de voz (transcrita):";
 
 export interface MensajeEntrante {
   tenant: Tenant;
   telefono: string;
   texto: string;
+  /** Nota de voz: se transcribe dentro de la cola del cliente y su texto reemplaza a `texto`. */
+  audio?: AudioEntrante;
   waMessageId?: string;
   nombrePerfil?: string;
   /** false en /test/chat: la respuesta se devuelve pero no se manda por WhatsApp. */
@@ -77,12 +86,23 @@ async function procesar(m: MensajeEntrante): Promise<ResultadoEntrada> {
   };
 
   try {
+    let textoEntrante = m.texto;
+    if (m.audio) {
+      const transcrito = await transcribirNotaDeVoz(tenant, m.audio);
+      if (!transcrito) {
+        await responder(MENSAJE_AUDIO_NO_ENTENDIDO);
+        return { respuesta: MENSAJE_AUDIO_NO_ENTENDIDO, herramientas: [], error: true };
+      }
+      textoEntrante = `${PREFIJO_NOTA_DE_VOZ} ${transcrito}`;
+      log.info({ caracteres: transcrito.length }, "Nota de voz transcrita");
+    }
+
     const conversacion = await obtenerOCrearConversacion(tenant, telefono, m.nombrePerfil);
-    const nuevo = await guardarMensajeEntrante(conversacion.id, m.texto, m.waMessageId);
+    const nuevo = await guardarMensajeEntrante(conversacion.id, textoEntrante, m.waMessageId);
     if (!nuevo) return { respuesta: null, herramientas: [], duplicado: true };
 
     // Comandos del dueño: no pasan por el modelo.
-    const comando = telefono === tenant.credenciales().owner ? comandoDelDueno(m.texto) : null;
+    const comando = telefono === tenant.credenciales().owner ? comandoDelDueno(textoEntrante) : null;
     if (comando) {
       const resultado = await cambiarEstadoReserva(tenant, comando.id, comando.estado);
       await guardarRespuesta(conversacion.id, resultado.mensaje);

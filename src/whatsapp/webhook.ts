@@ -3,7 +3,7 @@ import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { env } from "../config/env";
 import { logger } from "../config/logger";
-import { MENSAJE_SOLO_TEXTO, procesarMensajeEntrante } from "../services/entrada";
+import { MENSAJE_SIN_ADJUNTOS, MENSAJE_SOLO_TEXTO, procesarMensajeEntrante } from "../services/entrada";
 import { tenantPorPhoneNumberId } from "../tenants/loader";
 import { enviarTexto } from "./cliente";
 
@@ -29,6 +29,7 @@ const payloadSchema = z.object({
                         id: z.string().optional(),
                         type: z.string().optional(),
                         text: z.object({ body: z.string() }).optional(),
+                        audio: z.object({ id: z.string(), mime_type: z.string().optional() }).optional(),
                       }),
                     )
                     .optional(),
@@ -83,8 +84,18 @@ async function procesarPayload(payload: Payload): Promise<void> {
             nombrePerfil,
             enviarPorWhatsapp: true,
           });
+        } else if (mensaje.type === "audio" && mensaje.audio?.id && env.sttHabilitado) {
+          void procesarMensajeEntrante({
+            tenant,
+            telefono: mensaje.from,
+            texto: "",
+            audio: { mediaId: mensaje.audio.id, mimeType: mensaje.audio.mime_type },
+            waMessageId: mensaje.id,
+            nombrePerfil,
+            enviarPorWhatsapp: true,
+          });
         } else if (["audio", "image", "video", "document", "sticker", "location", "contacts"].includes(mensaje.type)) {
-          await enviarTexto(tenant, mensaje.from, MENSAJE_SOLO_TEXTO);
+          await enviarTexto(tenant, mensaje.from, env.sttHabilitado ? MENSAJE_SIN_ADJUNTOS : MENSAJE_SOLO_TEXTO);
         }
       }
     }
