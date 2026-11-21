@@ -1,0 +1,125 @@
+// Esquema de datos. PostgreSQL (igual que NFCloud y el POS).
+// Los estados se guardan como String para mantener la compatibilidad del código.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id            String   @id // p. ej. "riovivo" (igual a la carpeta en src/tenants)
+  nombre        String
+  phoneNumberId String?  @unique // phone_number_id de Meta: resuelve el tenant en el webhook
+  ownerWhatsapp String?
+  zonaHoraria   String   @default("America/Bogota")
+  catalogoJson  String? // copia del catálogo cargada por el seed
+  menuJson      String?
+  activo        Boolean  @default(true)
+  creadoEn      DateTime @default(now())
+  actualizadoEn DateTime @updatedAt
+
+  conversaciones Conversacion[]
+  reservas       Reserva[]
+  recordatorios  Recordatorio[]
+  notificaciones Notificacion[]
+}
+
+model Conversacion {
+  id               Int       @id @default(autoincrement())
+  tenantId         String
+  telefono         String
+  nombreCliente    String?
+  datosCliente     String    @default("{}") // JSON: experiencia de interés, fechas mencionadas, notas
+  resumen          String? // resumen acumulado de mensajes antiguos
+  estado           String    @default("ACTIVA") // ACTIVA | ESCALADA
+  ultimoEntranteEn DateTime? // último mensaje del cliente (ventana de 24 h de WhatsApp)
+  creadoEn         DateTime  @default(now())
+  actualizadoEn    DateTime  @updatedAt
+
+  tenant   Tenant    @relation(fields: [tenantId], references: [id])
+  mensajes Mensaje[]
+  reservas Reserva[]
+
+  @@unique([tenantId, telefono])
+}
+
+model Mensaje {
+  id             Int      @id @default(autoincrement())
+  conversacionId Int
+  rol            String // user | assistant
+  contenido      String
+  waMessageId    String?  @unique // id de Meta: evita procesar dos veces un reintento
+  resumido       Boolean  @default(false) // ya está incluido en Conversacion.resumen
+  creadoEn       DateTime @default(now())
+
+  conversacion Conversacion @relation(fields: [conversacionId], references: [id])
+
+  @@index([conversacionId, id])
+}
+
+model Reserva {
+  id                Int       @id @default(autoincrement())
+  tenantId          String
+  conversacionId    Int?
+  nombre            String
+  telefono          String
+  experienciaId     String
+  experienciaNombre String
+  inicio            DateTime // estancia completa (pasadía: igual a la cita)
+  fin               DateTime
+  profInicio        DateTime? // bloque del profesional (no puede solaparse)
+  profFin           DateTime?
+  habitacionId      String?
+  personas          Int
+  noches            Int       @default(0)
+  totalEstimado     Int?
+  depositoEstimado  Int?
+  notas             String?
+  estado            String    @default("PENDIENTE") // PENDIENTE | CONFIRMADA | RECHAZADA | CANCELADA
+  creadoEn          DateTime  @default(now())
+  actualizadoEn     DateTime  @updatedAt
+
+  tenant        Tenant         @relation(fields: [tenantId], references: [id])
+  conversacion  Conversacion?  @relation(fields: [conversacionId], references: [id])
+  recordatorios Recordatorio[]
+
+  @@index([tenantId, estado, profInicio])
+  @@index([tenantId, estado, inicio])
+}
+
+model Recordatorio {
+  id            Int       @id @default(autoincrement())
+  tenantId      String
+  telefono      String
+  fechaHora     DateTime
+  mensaje       String
+  estado        String    @default("PENDIENTE") // PENDIENTE | ENVIADO | FALLIDO | CANCELADO
+  intentos      Int       @default(0)
+  error         String?
+  reservaId     Int?
+  enviadoEn     DateTime?
+  creadoEn      DateTime  @default(now())
+  actualizadoEn DateTime  @updatedAt
+
+  tenant  Tenant   @relation(fields: [tenantId], references: [id])
+  reserva Reserva? @relation(fields: [reservaId], references: [id])
+
+  @@index([estado, fechaHora])
+}
+
+model Notificacion {
+  id              Int      @id @default(autoincrement())
+  tenantId        String
+  motivo          String
+  resumen         String
+  telefonoCliente String?
+  enviada         Boolean  @default(false)
+  error           String?
+  creadoEn        DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+}

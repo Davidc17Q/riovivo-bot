@@ -1,0 +1,165 @@
+{
+  "tenant": "riovivo",
+  "nota_general": "El servicio de alimentación lo ofrecen restaurantes aliados. A cada pedido se suma el domicilio, cuyo valor lo establece el domiciliario: en el día 15000 y en la noche 20000. El catering del spa tiene domicilio de 10000, se reserva con anticipación y llega al mediodía en empaques desechables.",
+  "moneda": "COP",
+  "domicilios": {
+    "dia": 15000,
+    "noche": 20000,
+    "catering": 10000
+  },
+  "categorias": [
+    {
+      "id": "catering_spa",
+      "nombre": "Catering del Spa",
+      "nota": "Se reserva con anticipación.",
+      "items": [
+        { "nombre": "Trucha o tilapia frita", "precio": 33000, "descripcion": "Arroz de coco, ensalada y patacones" },
+        { "nombre": "Bandeja (pollo, res, chicharrón o cerdo)", "precio": 26000, "descripcion": "Seco, sopa o frijoles, y limonada" }
+      ]
+    },
+    {
+      "id": "arepas_rellenas",
+      "nombre": "Arepas rellenas",
+      "nota": "Delicias frías - restaurante aliado",
+      "items": [
+        { "nombre": "Carne o pollo", "precio": 23000 },
+        { "nombre": "Mixta", "precio": 24000 },
+        { "nombre": "Especial", "precio": 26000 },
+        { "nombre": "Antioqueña", "precio": 23000 }
+      ]
+    },
+    {
+      "id": "derretidos_crepes",
+      "nombre": "Derretidos y crepes",
+      "items": [
+        { "nombre": "Derretido especial", "precio": 27000 },
+        { "nombre": "Crep de pollo o carne", "precio": 26000 },
+        { "nombre": "Crep arepa, derretido, fajita y patacón vegetariano", "precio": 23000 }
+      ]
+    },
+    {
+      "id": "patacones",
+      "nombre": "Patacones",
+      "items": [
+        { "nombre": "Carne o pollo", "precio": 26000 },
+        { "nombre": "Ranchero", "precio": 28000 },
+        { "nombre": "Especial", "precio": 29000 },
+        { "nombre": "Camarones", "precio": 30000 }
+      ]
+    },
+    {
+      "id": "sanduches_fajitas",
+      "nombre": "Sánduches y fajitas",
+      "items": [
+        { "nombre": "Sánduche de jamón y queso", "precio": 17000 },
+        { "nombre": "Sánduche de atún", "precio": 24000 },
+        { "nombre": "Fajitas", "precio": 23000 },
+        { "nombre": "Quesadillas", "precio": 23000 },
+        { "nombre": "Burritos", "precio": 28000 }
+      ]
+    },
+    {
+      "id": "otros_platos",
+      "nombre": "Otros platos",
+      "items": [
+        { "nombre": "Lasaña (champiñones, mixta o carne)", "precio": 25000 },
+        { "nombre": "Chuzo de pollo BBQ", "precio": 28000 },
+        { "nombre": "Hamburguesa + papas", "precio": 23000 },
+        { "nombre": "Perro o perras + papas", "precio": 20000 },
+        { "nombre": "Maícitos", "precio": 23000 },
+        { "nombre": "Salchipapas", "precio": 16500 },
+        { "nombre": "Salchipapas especial", "precio": 22000 },
+        { "nombre": "Ceviche de camarones", "precio": 28000 }
+      ]
+    },
+    {
+      "id": "heladeria_cucuruchos",
+      "nombre": "Heladería - Cucuruchos y conchas",
+      "items": [
+        { "nombre": "Cucurucho sencillo", "precio": 5000 },
+        { "nombre": "Cucurucho doble", "precio": 9000 },
+        { "nombre": "Miniconcha", "precio": 9500 },
+        { "nombre": "Junior", "precio": 12000 },
+        { "nombre": "Banana conchuda", "precio": 14000 }
+      ]
+    },
+    {
+      "id": "heladeria_salpicones",
+      "nombre": "Heladería - Salpicones y frutas",
+      "items": [
+        { "nombre": "Salpicón especial", "precio": 15000 },
+        { "nombre": "Salpicón con helado", "precio": 12000 },
+        { "nombre": "Salpicón sencillo o mini", "precio": 9500 },
+        { "nombre": "Salpicón con helado y queso", "precio": 16000 },
+        { "nombre": "Ensalada de frutas mediana", "precio": 22000 },
+        { "nombre": "Ensalada de frutas grande", "precio": 26000 },
+        { "nombre": "Ensalada de frutas mini", "precio": 18000 }
+      ]
+    },
+    {
+      "id": "heladeria_copas",
+      "nombre": "Heladería - Copas y gourmet",
+      "items": [
+        { "nombre": "Copa fresas, duraznos o brevas con crema", "precio": 16500 },
+        { "nombre": "Copa gusanito, ratoncito, payasito, osito o arañita", "precio": 9500 },
+        { "nombre": "Maracumango", "precio": 18500 },
+        { "nombre": "Pasión", "precio": 18000 },
+        { "nombre": "Tropical", "precio": 18000 },
+        { "nombre": "Caribe", "precio": 17500 },
+        { "nombre": "Chocobanana", "precio": 16500 },
+        { "nombre": "Crepes con helado", "precio": 21800 },
+        { "nombre": "Wafle clásico", "precio": 21000 },
+        { "nombre": "Wafle especial", "precio": 22000 },
+        { "nombre": "Banana split", "precio": 18000 },
+        { "nombre": "Gel-helado", "precio": 15000 },
+        { "nombre": "Brownie", "precio": 15000 },
+        { "nombre": "Copa oreo", "precio": 15000 },
+        { "nombre": "Delicia", "precio": 18500 },
+        { "nombre": "Sensación de queso", "precio": 18500 }
+      ]
+    },
+    {
+      "id": "bebidas",
+      "nombre": "Bebidas",
+      "items": [
+        { "nombre": "Jugo natural", "precio": 9000 },
+        { "nombre": "Jugo en soda", "precio": 12000 },
+        { "nombre": "Granizado", "precio": 14000 },
+        { "nombre": "Granizado especial", "precio": 12000 },
+        { "nombre": "Limonada especial", "precio": 13000 },
+        { "nombre": "Soda saborizada", "precio": 13000 },
+        { "nombre": "Malteada", "precio": 15000 },
+        { "nombre": "Cholao", "precio": 16000 },
+        { "nombre": "Café (milo, borojó, capuchino, mokachino, ópera, affogato)", "precio": 13000 }
+      ]
+    },
+    {
+      "id": "barril_boty_picadas",
+      "nombre": "El Barril del Boty - Picadas",
+      "nota": "Todas con papa, yuca, guacamole y salsa BBQ de la casa.",
+      "items": [
+        { "nombre": "1000 gr de carne", "precio": 70000 },
+        { "nombre": "1250 gr de carne", "precio": 85000 },
+        { "nombre": "1500 gr de carne", "precio": 110000 },
+        { "nombre": "2000 gr de carne", "precio": 140000 },
+        { "nombre": "2500 gr de carne", "precio": 175000 },
+        { "nombre": "2750 gr de carne", "precio": 195000 },
+        { "nombre": "3000 gr de carne", "precio": 210000 },
+        { "nombre": "3500 gr de carne", "precio": 245000 }
+      ]
+    },
+    {
+      "id": "barril_boty_asados",
+      "nombre": "El Barril del Boty - Asados personales",
+      "nota": "500 gr cada uno. Todos con papa, yuca, guacamole y salsa BBQ de la casa.",
+      "items": [
+        { "nombre": "Bondiola de cerdo", "precio": 35000 },
+        { "nombre": "Punta de anca de cerdo", "precio": 35000 },
+        { "nombre": "Cañón", "precio": 35000 },
+        { "nombre": "Chicharrón", "precio": 35000 },
+        { "nombre": "Costillas", "precio": 35000 },
+        { "nombre": "Solomo de res", "precio": 35000 }
+      ]
+    }
+  ]
+}

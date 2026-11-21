@@ -1,0 +1,46 @@
+{
+  "id": "riovivo",
+  "nombre": "Río Vivo Spa",
+  "zona_horaria": "America/Bogota",
+  "codigo_pais": "57",
+  "whatsapp": {
+    "phone_number_id_env": "WHATSAPP_PHONE_NUMBER_ID",
+    "token_env": "WHATSAPP_TOKEN",
+    "owner_env": "OWNER_WHATSAPP",
+    "owner_por_defecto": "573113470053",
+    "plantilla_recordatorio": null,
+    "plantilla_notificacion": null,
+    "idioma_plantilla": "es_CO"
+  },
+  "agenda": {
+    "apertura": "10:00",
+    "cierre": "17:00",
+    "profesionales": 8,
+    "ultimo_inicio": "14:00",
+    "paso_min": 30,
+    "anticipacion_min": 60,
+    "dias_busqueda_alternativas": 14,
+    "checkin": "15:00",
+    "checkout": "12:00",
+    "max_noches": 14,
+    "experiencias": {
+      "solara":    { "requiere_profesional": true,  "minutos_profesional": 60,  "por_persona": true },
+      "armonia":   { "requiere_profesional": true,  "minutos_profesional": 60,  "por_persona": true },
+      "vitalia":   { "requiere_profesional": true,  "minutos_profesional": 90,  "por_persona": true },
+      "alma":      { "requiere_profesional": true,  "minutos_profesional": 90,  "por_persona": true },
+      "aurea":     { "requiere_profesional": true,  "minutos_profesional": 120, "por_persona": true },
+      "namaste":   { "requiere_profesional": true,  "minutos_profesional": 90,  "por_persona": false },
+      "oasis":     { "requiere_profesional": true,  "minutos_profesional": 120, "por_persona": false },
+      "hospedaje": { "requiere_profesional": false, "minutos_profesional": 0,   "por_persona": false },
+      "serena":    { "requiere_profesional": true,  "minutos_profesional": 120, "por_persona": false },
+      "romantico": { "requiere_profesional": true,  "minutos_profesional": 150, "por_persona": false }
+    }
+  },
+  "reservas": {
+    "deposito_porcentaje": 0.5,
+    "datos_pago": "Puedes transferir a la cuenta de ahorros Bancolombia *23085845934* a nombre de Río Vivo Spa."
+  },
+  "recordatorios": {
+    "horas_antes": 24
+  }
+}

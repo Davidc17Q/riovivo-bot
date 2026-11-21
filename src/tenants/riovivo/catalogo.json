@@ -1,0 +1,45 @@
+{
+  "tenant": "riovivo",
+  "spa": {
+    "nombre": "Río Vivo Spa",
+    "ubicacion": "Santafé de Antioquia, Colombia",
+    "zona_horaria": "America/Bogota",
+    "horario_atencion": "10:00-17:00",
+    "whatsapp": "3113470053",
+    "instagram": "https://www.instagram.com/riovivospa",
+    "frase_marca": "Aquí no solo vienes a descansar: vienes a reconectarte."
+  },
+  "experiencias_por_persona": [
+    { "id": "solara",  "nombre": "Solara",  "precio": 85000,  "moneda": "COP", "horario": "10:00-17:00", "incluye": "Piscina, turco, ritual de renovación corporal, elixir de cacao corporal" },
+    { "id": "armonia", "nombre": "Armonía", "precio": 85000,  "moneda": "COP", "horario": "10:00-17:00", "incluye": "Ritual de bambú para espalda, masaje de relajación en espalda, pulido de manos y pies con café, elixir de cacao corporal, piscina, turco, aromaterapia, musicoterapia" },
+    { "id": "vitalia", "nombre": "Vitalia", "precio": 120000, "moneda": "COP", "horario": "10:00-17:00", "incluye": "Maderoterapia, masaje antiestrés, ritual de renovación corporal, ritual de cacao, piscina, turco, aromaterapia, musicoterapia" },
+    { "id": "alma",    "nombre": "Alma",    "precio": 145000, "moneda": "COP", "horario": "10:00-17:00", "incluye": "Masaje antiestrés, piedras volcánicas, renovación celular con café orgánico, ritual de chocolate, piscina, turco, aromaterapia, musicoterapia" },
+    { "id": "aurea",   "nombre": "Áurea",   "precio": 160000, "moneda": "COP", "horario": "10:00-17:00", "insignia": true, "incluye": "Renovación celular con café orgánico, hidratación con antioxidantes de uva, masaje cuerpo completo y plumas, craneofacial, reflexología, piedras volcánicas, jacuzzi, turco, piscina, aromaterapia, musicoterapia" }
+  ],
+  "experiencias_dos_personas": [
+    { "id": "namaste", "nombre": "Namasté", "precio": 160000, "moneda": "COP", "tipo": "pasadia", "horario": "10:00-17:00", "incluye": "Masaje relajante de cuello y espalda, chocolaterapia corporal, aromaterapia, musicoterapia, turco o sauna, piscina" },
+    { "id": "oasis",   "nombre": "Oasis",   "precio": 390000, "moneda": "COP", "tipo": "dia_con_habitacion", "horario": "10:00-17:00", "hora_adicional": 20000, "incluye": "Habitación con baño privado, A/C, TV con Netflix, WiFi, renovación celular con café, elixir de chocolate corporal, masaje antiestrés, aromaterapia, musicoterapia, piscina, jacuzzi frío, turco, parqueadero" }
+  ],
+  "hospedaje": [
+    { "id": "hospedaje", "nombre": "Hospedaje", "precio": 280000, "moneda": "COP", "tipo": "noche", "personas": "2 a 5", "descuento_entre_semana": 0.10, "incluye": "Aire acondicionado, baño privado, TV y Netflix, WiFi, desayuno, acceso completo a zonas húmedas, parqueadero" },
+    { "id": "serena",    "nombre": "Serena",    "precio": 430000, "moneda": "COP", "tipo": "noche", "personas": 2, "incluye": "Noche para dos, desayuno, habitación privada con A/C baño TV Netflix WiFi, ritual de chocolate, masaje antiestrés, renovación celular con café, piscina, turco, parqueadero" },
+    { "id": "romantico", "nombre": "Romántico", "precio": 550000, "moneda": "COP", "tipo": "noche", "personas": 2, "incluye": "Alojamiento una noche para dos, decoración en habitación, botella de vino, desayuno, masaje relajante cuerpo completo, craneofacial, reflexología, piedras volcánicas, hidromasaje en jacuzzi, renovación celular con café, aromaterapia, musicoterapia, turco, piscina" }
+  ],
+  "habitaciones": [
+    { "id": "sencilla",  "nombre": "Habitación Sencilla",  "capacidad": 2, "descripcion": "Íntima y acogedora, pensada para dos." },
+    { "id": "grupal",    "nombre": "Habitación Grupal",    "capacidad": 5, "descripcion": "Ideal para familias y grupos de amigos." },
+    { "id": "doble-1",   "nombre": "Habitación Doble 1",   "capacidad": 2, "descripcion": "Cómoda para dos personas." },
+    { "id": "doble-2",   "nombre": "Habitación Doble 2",   "capacidad": 2, "descripcion": "Cómoda para dos personas." },
+    { "id": "familiar",  "nombre": "Habitación Familiar",  "capacidad": 5, "descripcion": "Amplia, para familias o grupos." }
+  ],
+  "politicas": {
+    "deposito": "Depósito del 50% para confirmar y asegurar la reserva",
+    "ajustes": "Ajustes de fecha o experiencia con mínimo 48 horas de anticipación, sujeto a disponibilidad",
+    "reembolso": "Los pagos realizados no son reembolsables",
+    "pasos_reserva": "1) Consultar disponibilidad por WhatsApp. 2) Indicar fechas, número de personas y experiencia. 3) Recibir tarifas. 4) Depósito del 50% para confirmar.",
+    "domicilio_dia": 15000,
+    "domicilio_noche": 20000,
+    "domicilio_catering": 10000,
+    "nota_alimentacion": "El servicio de alimentación lo ofrecen restaurantes aliados; el domicilio lo establece el domiciliario. El catering del spa se reserva con anticipación y llega al mediodía en empaques desechables."
+  }
+}

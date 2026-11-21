@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: bot
+      POSTGRES_PASSWORD: bot_local
+      POSTGRES_DB: riovivo_bot
+    # Puerto 5434 para no chocar con el POS (5433) ni con NFCloud.
+    ports:
+      - "5434:5432"
+    volumes:
+      - bot_pgdata:/var/lib/postgresql/data
+
+volumes:
+  bot_pgdata:
