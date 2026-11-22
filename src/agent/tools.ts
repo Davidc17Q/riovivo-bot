@@ -1,5 +1,6 @@
 import type Anthropic from "@anthropic-ai/sdk";
 import { consultarCatalogo } from "../tools/consultarCatalogo";
+import { consultarDatosPago } from "../tools/consultarDatosPago";
 import { consultarDisponibilidad } from "../tools/consultarDisponibilidad";
 import { crearSolicitudReserva } from "../tools/crearSolicitudReserva";
 import type { Herramienta } from "../tools/definicion";
@@ -15,6 +16,7 @@ const HERRAMIENTAS: Herramienta[] = [
   notificarHumano,
   programarRecordatorio,
   guardarDatosCliente,
+  consultarDatosPago,
 ];
 
 export const definicionesTools: Anthropic.Tool[] = HERRAMIENTAS.map((h) => h.definicion);
